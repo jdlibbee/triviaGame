@@ -1,5 +1,21 @@
-What is the name of the games / groundskeeper of Hogwarts ?
-    Hagrid
+//player clicks start button
+//Question and answer options appear on screen
+//timer appears above the question with 15 seconds
+//player makes a guess
+//if right guess page loads with image of correct answer and congratulatory message, and internal correct count goes up.
+//if wrong guess, page loads with image of correct answer and internal wrong answer count goes up. 
+//timer appears above answer for 10 seconds before new question appears. 
+//after all 10 questions have been answered, the screen will show the number of correct and wrong answers.
+//player can click button to start game over again
+
+var questions = {
+    q1 ={
+        query = "What is the name of the games / groundskeeper of Hogwarts ?"
+        options =["Hagrid", "Hordid", ""]
+    }
+}
+
+Hagrid
 Hagar
 Hordid
 Hortencia
