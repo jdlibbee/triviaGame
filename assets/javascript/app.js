@@ -157,35 +157,40 @@ function generateResult() {
 //player makes a guess
 //if right guess page loads with image of correct answer and congratulatory message, and internal correct count goes up.
 //if wrong guess, page loads with image of correct answer and internal wrong answer count goes up. 
-function playerGuess() {
-    $('#option').on("click", function (event) {
-        event.preventDefault();
-        if (this == questions[qIndex].answer) {
-            timer()
-            correct++
-        } else {
-            timer()
-            wrong++
-        }
-    })
-}
+$('#option').on("click", function playerGuess(event) {
+
+    event.preventDefault();
+    if ($(this).text() == questions[qIndex].answer) {
+        timer()
+        correct++
+    } else {
+        timer()
+        wrong++
+    }
+})
+
 //after all 10 questions have been answered, the screen will show the number of correct and wrong answers.
 function showResults() {
-    if (qIndex >= 4) {
+    if (qIndex >= questions.length - 1) {
         var results = `
         <div class="jumbotron">
             <h1 class="display-4">Great Job!</h1>
             <p class="lead">Correct: ${correct}</p>
             <p class="lead">Wrong: ${wrong}</p>
             <hr class="my-4">
-            <a class="btn btn-secondary btn-lg">Play Again!</a>
+            <a class="btn btn-secondary btn-lg" id="playAgain">Play Again!</a>
         </div>
         `;
         $('#results').append(results)
     }
 }
 //player can click button to start game over again
-
+$('#playAgain').on('click', function reset() {
+    $('#results').empty();
+    correct = 0;
+    wrong = 0;
+    $('#start').show()
+})
 
 
 
