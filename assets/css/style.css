@@ -1,4 +1,19 @@
 body{
     background: url(../images/background.jpg);
     background-size: 125%;
+    color: goldenrod;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 40px;
+}
+h1, h2, p {
+    background-color: rgba(8, 10, 10, 0.425);
+    color: goldenrod;
+    margin: 10px auto;
+}
+img{
+    width: 100%;
+}
+button:hover{
+    background: crimson;
+    color: goldenrod;
 }
