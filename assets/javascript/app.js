@@ -66,6 +66,7 @@ var timerCount = 10;
 var timerId;
 var correct = 0;
 var wrong = 0;
+var resultsShowing = false;
 //player clicks start button
 //need to make start button dissapere
 //find where it lives on the screan
@@ -86,6 +87,7 @@ $('#start').on("click", function (event) {
 //place to put the generated html    
 function generateQuestion() {
     console.log("questions gentated");
+    $('#question').empty()
     var question = `
         <div class="col-sm-12">
             <h1>${questions[qIndex].question}</h1>
@@ -144,37 +146,62 @@ function timer() {
         generateResult();
         qIndex++
         setTimeout(function () {
-            generateQuestion();
             startTimer();
             finalResults();
-        }, 5000)
+        }, 2000)
+    } else {
+        // ++qIndex
+        // clearInterval(timerId);
+        //     setTimeout(function () {
+        //         generateQuestion();
+        //         startTimer();
+        //         finalResults();
+        //     }, 2000)
     }
 }
 
 function generateResult() {
     $('#results').append($(`<p>The Correct Answer Is: ${questions[qIndex].answer}</p>`));
     $('#results').append($(`<img src="${questions[qIndex].img}">`));
+    resultsShowing = true;
 }
 //player makes a guess
 //if right guess page loads with image of correct answer and congratulatory message, and internal correct count goes up.
 //if wrong guess, page loads with image of correct answer and internal wrong answer count goes up. 
-$('#option').on("click", function (event) {
-
+$('#question').on("click", "#option", function (event) {
+    console.log("clicked");
     event.preventDefault();
     if ($(this).text() == questions[qIndex].answer) {
-        generateResult()
+        clearInterval(timerId);
         correct++
-        console.log(correct);
-    } else {
         generateResult()
+        console.log("correct" + correct);
+        ++qIndex
+        clearInterval(timerId);
+        setTimeout(function () {
+            startTimer();
+            finalResults();
+        }, 2000)
+    } else {
+        clearInterval(timerId);
         wrong++
-        console.log(wrong);
+        generateResult()
+        finalResults()
+        console.log("wrong" + wrong);
+        qIndex++
+        clearInterval(timerId);
+        setTimeout(function () {
+            startTimer();
+            finalResults();
+        }, 2000)
     }
 })
 
 //after all 10 questions have been answered, the screen will show the number of correct and wrong answers.
 function finalResults() {
-    if (qIndex >= questions.length - 1) {
+
+    if (qIndex >= questions.length) {
+        $('#question').empty();
         var results = `
         <div class="jumbotron">
             <h1 class="display-4">Great Job!</h1>
@@ -184,11 +211,15 @@ function finalResults() {
             <a class="btn btn-secondary btn-lg" id="playAgain">Play Again!</a>
         </div>
         `;
+        clearInterval(timerId)
         $('#results').append(results)
+    }
+    else {
+        generateQuestion();
     }
 }
 //player can click button to start game over again
-$('#playAgain').on('click', function reset() {
+$('#results').on('click', '#playAgain', function reset() {
     $('#results').empty();
     correct = 0;
     wrong = 0;
