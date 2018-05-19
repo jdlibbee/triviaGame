@@ -62,7 +62,7 @@ var questions = [
     },
 ]
 var qIndex = 0;
-var timerCount = 15;
+var timerCount = 10;
 var timerId;
 var correct = 0;
 var wrong = 0;
@@ -130,7 +130,7 @@ function generateQuestion() {
 // display image/right answer and time left = 0
 
 function startTimer() {
-    timerCount = 15
+    timerCount = 10
     $('#timer').text(timerCount);
     $('#results').empty();
     timerId = setInterval(timer, 1000);
@@ -146,6 +146,7 @@ function timer() {
         setTimeout(function () {
             generateQuestion();
             startTimer();
+            finalResults();
         }, 5000)
     }
 }
@@ -157,20 +158,22 @@ function generateResult() {
 //player makes a guess
 //if right guess page loads with image of correct answer and congratulatory message, and internal correct count goes up.
 //if wrong guess, page loads with image of correct answer and internal wrong answer count goes up. 
-$('#option').on("click", function playerGuess(event) {
+$('#option').on("click", function (event) {
 
     event.preventDefault();
     if ($(this).text() == questions[qIndex].answer) {
-        timer()
+        generateResult()
         correct++
+        console.log(correct);
     } else {
-        timer()
+        generateResult()
         wrong++
+        console.log(wrong);
     }
 })
 
 //after all 10 questions have been answered, the screen will show the number of correct and wrong answers.
-function showResults() {
+function finalResults() {
     if (qIndex >= questions.length - 1) {
         var results = `
         <div class="jumbotron">
@@ -189,6 +192,7 @@ $('#playAgain').on('click', function reset() {
     $('#results').empty();
     correct = 0;
     wrong = 0;
+    qIndex = 0;
     $('#start').show()
 })
 
