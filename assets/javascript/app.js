@@ -161,6 +161,7 @@ function timer() {
 }
 
 function generateResult() {
+    $('#question').empty();
     $('#results').append($(`<p>The Correct Answer Is: ${questions[qIndex].answer}</p>`));
     $('#results').append($(`<img src="${questions[qIndex].img}">`));
     resultsShowing = true;
